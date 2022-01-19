@@ -16,7 +16,7 @@ For that reason we provide you the opencast/etc/ folder.
 ## How to connect Opencast with Moodle using the API
 
 We need to install some plugins on Moodle to allow Opencast the inter-communication. There are 5 plugins that we need to install on Moodle:
-![[./README/Pasted\ image\ 20220110093805\ 1.png]]
+![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted%20image%2020220110093805%201.png?raw=true)
 Y los plugins son:
 -	**[Tool](https://moodle.docs.opencast.org/#tool/about.html)**
 -   **[Block](https://moodle.docs.opencast.org/#block/about.html)**
