@@ -1,0 +1,86 @@
+version: "3"
+
+volumes:
+  db: {}
+  elastic: {}
+  data: {}
+  
+
+services:
+  postgresql:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_DB: opencast
+      POSTGRES_USER: opencast
+      POSTGRES_PASSWORD: opencast
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      - opencast-network
+
+  activemq:
+    image: webcenter/activemq:5.14.3
+    environment:
+      ACTIVEMQ_MIN_MEMORY: 128
+      ACTIVEMQ_MAX_MEMORY: 1024
+      ACTIVEMQ_ENABLED_SCHEDULER: "true"
+      ACTIVEMQ_REMOVE_DEFAULT_ACCOUNT: "true"
+      ACTIVEMQ_OWNER_LOGIN: admin
+      ACTIVEMQ_OWNER_PASSWORD: password
+    volumes:
+      - ./assets/activemq.xml:/opt/activemq/conf/activemq.xml:ro
+    networks:
+      - opencast-network
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2
+    environment:
+      discovery.type: single-node
+      ES_JAVA_OPTS: '-Dlog4j2.formatMsgNoLookups=true'
+    volumes:
+      - elastic:/usr/share/elasticsearch/data
+    networks:
+      - opencast-network
+
+  # nginx:
+  #   image: nginx
+  #   volumes:
+  #     - ./nginx/nginx-templates:/etc/nginx/templates
+  #     - ./nginx/certs:/etc/ssl/certs/opencast
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   environment:
+  #     # - NGINX_HOST=192.168.0.122
+  #     - APPLICATION_URL=http://opencast:8080
+  #   networks:
+  #     - opencast-network
+  #   #   - NGINX_PORT=80
+
+  opencast:
+    image: quay.io/opencast/allinone:11.2
+    environment:
+      ORG_OPENCASTPROJECT_SERVER_URL: http://192.168.0.122:8080
+      ORG_OPENCASTPROJECT_DOWNLOAD_URL: http://192.168.0.122:8080/static
+      ORG_OPENCASTPROJECT_SECURITY_ADMIN_USER: admin
+      ORG_OPENCASTPROJECT_SECURITY_ADMIN_PASS: opencast
+      ORG_OPENCASTPROJECT_SECURITY_DIGEST_USER: opencast_system_account
+      ORG_OPENCASTPROJECT_SECURITY_DIGEST_PASS: CHANGE_ME
+      ORG_OPENCASTPROJECT_DB_VENDOR: PostgreSQL
+      ORG_OPENCASTPROJECT_DB_JDBC_URL: jdbc:postgresql://postgresql/opencast
+      ORG_OPENCASTPROJECT_DB_JDBC_USER: opencast
+      ORG_OPENCASTPROJECT_DB_JDBC_PASS: opencast
+      ACTIVEMQ_BROKER_URL: failover://(tcp://activemq:61616)?initialReconnectDelay=2000&maxReconnectDelay=60000
+      ACTIVEMQ_BROKER_USERNAME: admin
+      ACTIVEMQ_BROKER_PASSWORD: password
+      ELASTICSEARCH_SERVER_HOST: elasticsearch
+    networks:
+      - opencast-network
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./etc:/opencast/etc
+#      - ./nginx/certs:/etc/ssl/certs/opencast
+
+networks:
+  opencast-network: 
