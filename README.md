@@ -49,10 +49,14 @@ That plugin provid us a mechanism to split the file in N smallers pieces and upl
 ### Repository plugin
 After has the videos uploads on Opencast and linkeds to the course using the API, we are ready to reference the videos on two different ways:
 - Using the Video directly as one moodle common block. That appears on moodle course as OpenCast icon:
-![[./img/Pasted image 20220119140814.png]]
-![[Pasted image 20220119141009.png]]
+
+![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted%20image%2020220119140814.png?raw=true)
+
+![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted%20image%2020220119141009.png?raw=true)
+
 - Using the page (or another content) block and insert the Opencast Video as another media object.
-![[Pasted image 20220119141235.png]]
+
+![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted%20image%2020220119141235.png?raw=true)
 
 On this config options, it's important to select "Opencast channelid" = "api"
 
