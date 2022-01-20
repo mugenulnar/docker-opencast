@@ -42,20 +42,20 @@ services:
     networks:
       - opencast-network
 
-  # nginx:
-  #   image: nginx
-  #   volumes:
-  #     - ./nginx/nginx-templates:/etc/nginx/templates
-  #     - ./nginx/certs:/etc/ssl/certs/opencast
-  #   ports:
-  #     - "80:80"
-  #     - "443:443"
-  #   environment:
-  #     # - NGINX_HOST=192.168.0.122
-  #     - APPLICATION_URL=http://opencast:8080
-  #   networks:
-  #     - opencast-network
-  #   #   - NGINX_PORT=80
+  nginx:
+    image: nginx
+    volumes:
+      - ./nginx/nginx-templates:/etc/nginx/templates
+      - ./nginx/certs:/etc/ssl/certs/opencast
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      # - NGINX_HOST=192.168.0.122
+      - APPLICATION_URL=http://opencast:8080
+    networks:
+      - opencast-network
+    #   - NGINX_PORT=80
 
   opencast:
     image: quay.io/opencast/allinone:11.2
