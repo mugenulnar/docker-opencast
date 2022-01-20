@@ -63,7 +63,7 @@ On this config options, it's important to select "Opencast channelid" = "api"
 ### Filter plugin
 Is an extension of functions of Repository Plugin that needs the LTI integration
 
-...(Comming soon)
+...(Coming soon)
 
 
 At this moment we have an stable Opencast with Docker that could connect to Moodle throught the API.
