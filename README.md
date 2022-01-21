@@ -85,10 +85,17 @@ In addition, we delete the ports NAT of Opencast service because we don't need a
 
 With this changes we are isolation the dockers connections out of the host network.
 
+#
+## Problems
+
+### Videos don't show on Moodle
+The URL still showing `http://localhost:8080` 
+
+### Videos are not uploading to Engage
 - "publish to engage" on Moodle -> Deactivate?
 
+
 At this moment we have an stable Opencast with Docker that could connect to Moodle throught the API.
-So the next steps are:
-- SSL config for HTTPS connections
-- LTI integration
-- Scale with K8s
+## Future implementations
+- ### LTI integration
+- ### Scale with K8s
