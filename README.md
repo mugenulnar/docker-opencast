@@ -12,7 +12,7 @@ The new workflow is named: `moodle-publish.xml`
 We cleaned all the stuff form the schedule-and-upload workflow and prepare for the API upload by default.
 
 For that reason we provide you the opencast/etc/ folder.
-
+#
 ## How to connect Opencast with Moodle using the API
 
 We need to install some plugins on Moodle to allow Opencast the inter-communication. There are 5 plugins that we need to install on Moodle:
@@ -65,6 +65,27 @@ Is an extension of functions of Repository Plugin that needs the LTI integration
 
 ...(Coming soon)
 
+
+#
+## Configure HTTPS throught Nginx
+First of all, we change the Docker-Compose structure
+We create an internal and private network for the containers. That is the 172.16.0.0/24 network (For example, you can change it on the `docker-compose.yml`)
+
+In addition, we delete the ports NAT of Opencast service because we don't need anymore to access directly to the Opencast service. We will use Nginx for that.
+
+- `docker-compose.yml`
+- `/opencast/etc/org.ops4j.pax.web.cfg`
+  Change the default port HTTP: `80`
+- `/opencast/etc/custom.properties`
+  - org.opencastproject.server.url=http://<your-domain>
+  - org.opencastproject.download.url=http://<your-domain>/static
+- `/etc/nginx/templates/default.conf.template`
+  - `server_name <your-domain>`
+
+
+With this changes we are isolation the dockers connections out of the host network.
+
+- "publish to engage" on Moodle -> Deactivate?
 
 At this moment we have an stable Opencast with Docker that could connect to Moodle throught the API.
 So the next steps are:

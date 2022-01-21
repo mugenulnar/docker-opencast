@@ -54,12 +54,10 @@ services:
       - "80:80"
       - "443:443"
     environment:
-      # - NGINX_HOST=192.168.0.122
       - APPLICATION_URL=http://172.16.0.8
     networks:
       opencast-network:
         ipv4_address: 172.16.0.7
-    #   - NGINX_PORT=80
 
   opencast:
     image: quay.io/opencast/allinone:11.2
@@ -81,12 +79,9 @@ services:
     networks:
       opencast-network:
         ipv4_address: 172.16.0.8
-    hostname: opencast-dsa.local
-    # ports:
-    #   - "8080:8080"
+    hostname: opencast-dsa.local 
     volumes:
-      - ./etc:/opencast/etc
-#      - ./nginx/certs:/etc/ssl/certs/opencast
+      - ./etc:/opencast/etc 
 
 networks:
   opencast-network:
