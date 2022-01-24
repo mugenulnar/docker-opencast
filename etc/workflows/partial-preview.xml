@@ -244,7 +244,7 @@
       <configurations>
         <configuration key="download-source-tags">preview,editor</configuration>
         <configuration key="channel-id">internal</configuration>
-        <configuration key="url-pattern">http://localhost:8080/admin-ng/index.html#/events/events/${event_id}/tools/playback</configuration>
+        <configuration key="url-pattern">http://opencast-dsa.local/admin-ng/index.html#/events/events/${event_id}/tools/playback</configuration>
         <configuration key="check-availability">false</configuration>
       </configurations>
     </operation>

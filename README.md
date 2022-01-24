@@ -77,8 +77,8 @@ In addition, we delete the ports NAT of Opencast service because we don't need a
 - `/opencast/etc/org.ops4j.pax.web.cfg`
   Change the default port HTTP: `80`
 - `/opencast/etc/custom.properties`
-  - org.opencastproject.server.url=http://<your-domain>
-  - org.opencastproject.download.url=http://<your-domain>/static
+  - `org.opencastproject.server.url=http://<your-domain>`
+  - `org.opencastproject.download.url=http://<your-domain>/static`
 - `/etc/nginx/templates/default.conf.template`
   - `server_name <your-domain>`
 
@@ -90,12 +90,22 @@ With this changes we are isolation the dockers connections out of the host netwo
 
 ### Videos don't show on Moodle
 The URL still showing `http://localhost:8080` 
+- I change the URIs from `localhost:8080` to `<your-domain>`
+I add the Publish to Engage operation block but didn't work (I check again the publish to engage option on Moodle)
 
 ### Videos are not uploading to Engage
 - "publish to engage" on Moodle -> Deactivate?
 
 
 At this moment we have an stable Opencast with Docker that could connect to Moodle throught the API.
+
+
+## [LTI Integration](https://docs.opencast.org/r/9.x/admin/#modules/ltimodule/#integrating-opencast-using-lti)
+
+At this moment, we have some troubles with the Opencast Blocks because it returns an 403 Forbiden error, so we are not able to access to the video from Moodle.
+So, we are going to configure the LTI integration trying to solve the issue.
+
+
 ## Future implementations
 - ### LTI integration
 - ### Scale with K8s

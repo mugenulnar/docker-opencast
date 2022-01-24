@@ -59,7 +59,8 @@
             $('#publicationConfigurationPanel').toggle(publish);
             $('#holdOrPublishToggle_' + (publish ? 'publish':'hold')).prop('checked', 'checked');
         });
-
+        
+        /*
         engageWasChecked = $('#publishToEngage').prop('checked');
 
         $('input[name="publishToSearch"]').change(function(){
@@ -72,6 +73,7 @@
               $('#publishToEngage').prop('checked', false);
             }
         });
+        */
       </script>
     ]]>
   </configuration_panel>
@@ -204,6 +206,183 @@
         <configuration key="workflow-id">partial-publish</configuration>
       </configurations>
     </operation>
+
+
+    <!-- <operation
+      id="publish-engage"
+      exception-handler-workflow="partial-error"
+      description="Update recording in Opencast Media Module">
+      <configurations>
+        <configuration key="download-source-flavors">${download-source-flavors},dublincore/*,security/*</configuration>
+        <configuration key="download-source-tags">engage-download</configuration>
+        <configuration key="streaming-source-tags">engage-streaming</configuration>
+        <configuration key="strategy">merge</configuration>
+        <configuration key="check-availability">false</configuration>
+      </configurations>
+    </operation> -->
+
+
+
+     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- Encode for publication to Engage                                  -->
+    <!--                                                                   -->
+    <!-- Encode audio and video formats to the distribution formats that   -->
+    <!-- are required by the Engage publication channel.                   -->
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+    <!-- Encode presenter (camera) to Engage player format -->
+    <operation
+      if="${flagQuality360p}"
+      id="encode"
+      exception-handler-workflow="partial-error"
+      description="Encoding 360p video to MP4 download">
+      <configurations>
+        <configuration key="source-flavor">*/themed</configuration>
+        <configuration key="target-flavor">*/delivery</configuration>
+        <configuration key="target-tags">engage-download,engage-streaming,360p-quality</configuration>
+        <configuration key="encoding-profile">adaptive-360p.http</configuration>
+      </configurations>
+    </operation>
+    <operation
+      if="${flagQuality480p}"
+      id="encode"
+      exception-handler-workflow="partial-error"
+      description="Encoding 480p video to MP4 download">
+      <configurations>
+        <configuration key="source-flavor">*/themed</configuration>
+        <configuration key="target-flavor">*/delivery</configuration>
+        <configuration key="target-tags">engage-download,engage-streaming,480p-quality</configuration>
+        <configuration key="encoding-profile">adaptive-480p.http</configuration>
+      </configurations>
+    </operation>
+    <operation
+      if="${flagQuality720p}"
+      id="encode"
+      exception-handler-workflow="partial-error"
+      description="Encoding 720p video to MP4 download">
+      <configurations>
+        <configuration key="source-flavor">*/themed</configuration>
+        <configuration key="target-flavor">*/delivery</configuration>
+        <configuration key="target-tags">engage-download,engage-streaming,720p-quality</configuration>
+        <configuration key="encoding-profile">adaptive-720p.http</configuration>
+      </configurations>
+    </operation>
+    <operation
+      if="${flagQuality1080p}"
+      id="encode"
+      exception-handler-workflow="partial-error"
+      description="Encoding 1080p video to MP4 download">
+      <configurations>
+        <configuration key="source-flavor">*/themed</configuration>
+        <configuration key="target-flavor">*/delivery</configuration>
+        <configuration key="target-tags">engage-download,engage-streaming,1080p-quality</configuration>
+        <configuration key="encoding-profile">adaptive-1080p.http</configuration>
+      </configurations>
+    </operation>
+    <operation
+      if="${flagQuality2160p}"
+      id="encode"
+      exception-handler-workflow="partial-error"
+      description="Encoding 2160p video to MP4 download">
+      <configurations>
+        <configuration key="source-flavor">*/themed</configuration>
+        <configuration key="target-flavor">*/delivery</configuration>
+        <configuration key="target-tags">engage-download,engage-streaming,2160p-quality</configuration>
+        <configuration key="encoding-profile">adaptive-2160p.http</configuration>
+      </configurations>
+    </operation>
+    <operation
+      id="composite"
+      description="Create YouTube compatible output"
+      if="${publishToYouTube}"
+      fail-on-error="true"
+      exception-handler-workflow="partial-error">
+      <configurations>
+        <configuration key="source-flavor-lower">presentation/themed</configuration>
+        <configuration key="source-flavor-upper">presenter/themed</configuration>
+        <configuration key="encoding-profile">mp4-preview.dual.http</configuration>
+        <configuration key="target-flavor">composite/delivery</configuration>
+        <configuration key="target-tags">youtube</configuration>
+        <configuration key="output-resolution">1280x800</configuration>
+        <configuration key="output-background">0x000000FF</configuration>
+        <configuration key="layout">preview</configuration>
+        <configuration key="layout-preview">
+          {"horizontalCoverage":0.5,"anchorOffset":{"referring":{"left":1.0,"top":0.0},"reference":{"left":1.0,"top":0.0},"offset":{"x":0,"y":0}}};
+          {"horizontalCoverage":0.5,"anchorOffset":{"referring":{"left":0.0,"top":0.0},"reference":{"left":0.0,"top":0.0},"offset":{"x":0,"y":0}}};
+        </configuration>
+      </configurations>
+    </operation>
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- Segment video streams and extract metadata                        -->
+    <!--                                                                   -->
+    <!-- Apply the video segmentation algorithm to the presentation tracks -->
+    <!-- and extract segment preview images and metadata.                  -->
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+    <!-- Run the videosegmentation -->
+
+    <operation
+      id="segment-video"
+      fail-on-error="false"
+      description="Detecting slide transitions in presentation track">
+      <configurations>
+        <configuration key="source-flavor">presentation/themed</configuration>
+        <configuration key="target-tags">engage-download</configuration>
+      </configurations>
+    </operation>
+
+    <!-- Generate segment preview images -->
+
+    <operation
+      id="segmentpreviews"
+      fail-on-error="false"
+      description="Creating preview images for presentation segments">
+      <configurations>
+        <configuration key="source-flavor">presentation/themed</configuration>
+        <configuration key="target-flavor">presentation/segment+preview</configuration>
+        <configuration key="reference-flavor">presentation/delivery</configuration>
+        <configuration key="reference-tags">engage-download</configuration>
+        <configuration key="target-tags">engage-download</configuration>
+        <configuration key="encoding-profile">player-slides.http</configuration>
+      </configurations>
+    </operation>
+
+    <!-- Extract text form slide preview images -->
+
+    <operation
+      id="extract-text"
+      fail-on-error="false"
+      description="Extracting text from presentation segments">
+      <configurations>
+        <configuration key="source-flavor">presentation/themed</configuration>
+        <configuration key="target-tags">engage-download</configuration>
+      </configurations>
+    </operation>
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- Publish to publication channels                                   -->
+    <!--                                                                   -->
+    <!-- Send the encoded material along with the metadata to the          -->
+    <!-- publication channels.                                             -->
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+    <!-- Publish to engage player -->
+
+    <operation
+      id="publish-engage"
+      if="${publishToEngage}"
+      max-attempts="2"
+      exception-handler-workflow="partial-error"
+      description="Publishing to Opencast Media Module">
+      <configurations>
+        <configuration key="download-source-flavors">dublincore/*,security/*</configuration>
+        <configuration key="download-source-tags">engage-download,atom,rss,mobile</configuration>
+        <configuration key="streaming-source-tags">engage-streaming</configuration>
+        <configuration key="check-availability">false</configuration>
+      </configurations>
+    </operation>
+    
 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- Archive                                                           -->
