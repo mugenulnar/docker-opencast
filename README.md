@@ -105,6 +105,19 @@ At this moment we have an stable Opencast with Docker that could connect to Mood
 At this moment, we have some troubles with the Opencast Blocks because it returns an 403 Forbiden error, so we are not able to access to the video from Moodle.
 So, we are going to configure the LTI integration trying to solve the issue.
 
+The Structure are the following:
+
+Moodle will be the LTI consumer
+Opencast will be the LTI producer
+
+So, that means MoodleUsers try to access to Opencast resources.
+- [https://subscription.packtpub.com/book/hardware_and_creative/9781783289714/9/ch09lvl1sec58/supporting-the-lti-consumers-and-producers](Test)
+
+Go to Dashboard -> Site administration -> Plugins -> Activity modules -> External tool -> Manage tools
+And create a new Tool:
+
+
+
 
 ## Future implementations
 - ### LTI integration
