@@ -119,7 +119,7 @@ And create a new Tool:
 And use the Opencast Config parameters:
 ![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220126_0924.png?raw=true)
 
-And modify the following files:
+Modify the following files:
 - org.opencastproject.security.lti.LtiLaunchAuthenticationHandrler.cfg
   - Uncomment line: `lti.oauth.highly_trusted_consumer_key.1=CONSUMERKEY`
 - mh_default_org.xml:
@@ -136,14 +136,17 @@ We could choose:
   - This option embed a video into a new block of the course
   - Teacher could choose between a single video or a full video's series.
   ![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220126_09004.png?raw=true)
+
   ![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220126_09007.png?raw=true)
+
 - Embed the video throught any other resource (for example, a new page):
   - Teacher needs to pick up the video from the OpenCast Repository on Moodle
   ![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220126_09012.png?raw=true)
+
   ![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220126_09013.png?raw=true)
+
   (If you are not using Firefox you will see the video on this page)
   ![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220126_09020.png?raw=true)
-  
 
 
 
