@@ -549,6 +549,42 @@
     <property name="authHandler" ref="ltiLaunchAuthenticationHandler" />
   </bean>
 
+
+<!-- ###COPY##### -->
+<!-- 
+<bean name="oAuthConsumerDetailsService" class="org.opencastproject.kernel.security.OAuthSingleConsumerDetailsService">
+    <constructor-arg index="0" ref="userDetailsService" />
+    <constructor-arg index="1" value="moodle-KEY" />
+    <constructor-arg index="2" value="moodle-SECRET" />
+    <constructor-arg index="3" value="constructorName" />
+  </bean>
+
+  <bean name="oauthProtectedResourceFilter" class="org.opencastproject.kernel.security.LtiProcessingFilter">
+    <property name="consumerDetailsService" ref="oAuthConsumerDetailsService" />
+    <property name="tokenServices">
+      <bean class="org.springframework.security.oauth.provider.token.InMemoryProviderTokenServices" />
+    </property>
+    <property name="nonceServices">
+      <bean class="org.springframework.security.oauth.provider.nonce.InMemoryNonceServices" />
+    </property>
+    <property name="authHandler">
+      <bean class="org.opencastproject.kernel.security.LtiLaunchAuthenticationHandler">
+        <constructor-arg index="0" ref="userDetailsService" />
+
+        <constructor-arg index="1" ref="securityService" />
+        <constructor-arg index="2">
+          <list>
+            <value>moodle-KEY</value>
+
+          </list>
+        </constructor-arg>
+
+      </bean>
+    </property>
+  </bean> -->
+
+  <!-- ###END COPY##### -->
+
   <!-- ############### -->
   <!-- # CAS Support # -->
   <!-- ############### -->

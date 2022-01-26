@@ -17,7 +17,7 @@ For that reason we provide you the opencast/etc/ folder.
 
 We need to install some plugins on Moodle to allow Opencast the inter-communication. There are 5 plugins that we need to install on Moodle:
 
-![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted%20image%2020220110093805%201.png?raw=true)
+![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220110093805_1.png?raw=true)
 
 And the plugins are:
 -   **[Tool](https://moodle.docs.opencast.org/#tool/about.html)**
@@ -50,13 +50,13 @@ That plugin provid us a mechanism to split the file in N smallers pieces and upl
 After has the videos uploads on Opencast and linkeds to the course using the API, we are ready to reference the videos on two different ways:
 - Using the Video directly as one moodle common block. That appears on moodle course as OpenCast icon:
 
-![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted%20image%2020220119140814.png?raw=true)
+![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220119140814.png?raw=true)
 
-![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted%20image%2020220119141009.png?raw=true)
+![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220119141009.png?raw=true)
 
 - Using the page (or another content) block and insert the Opencast Video as another media object.
 
-![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted%20image%2020220119141235.png?raw=true)
+![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220119141235.png?raw=true)
 
 On this config options, it's important to select "Opencast channelid" = "api"
 
@@ -100,7 +100,7 @@ I add the Publish to Engage operation block but didn't work (I check again the p
 At this moment we have an stable Opencast with Docker that could connect to Moodle throught the API.
 
 
-## [LTI Integration](https://docs.opencast.org/r/9.x/admin/#modules/ltimodule/#integrating-opencast-using-lti)
+## [LTI Integration](https://docs.opencast.org/r/11.x/admin/#modules/ltimodule/)
 
 At this moment, we have some troubles with the Opencast Blocks because it returns an 403 Forbiden error, so we are not able to access to the video from Moodle.
 So, we are going to configure the LTI integration trying to solve the issue.
@@ -115,7 +115,35 @@ So, that means MoodleUsers try to access to Opencast resources.
 
 Go to Dashboard -> Site administration -> Plugins -> Activity modules -> External tool -> Manage tools
 And create a new Tool:
+![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220126_0923.png?raw=true)
+And use the Opencast Config parameters:
+![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220126_0924.png?raw=true)
 
+And modify the following files:
+- org.opencastproject.security.lti.LtiLaunchAuthenticationHandrler.cfg
+  - Uncomment line: `lti.oauth.highly_trusted_consumer_key.1=CONSUMERKEY`
+- mh_default_org.xml:
+  - Uncomment line: `<ref bean="oauthProtectedResourceFilter" />` inside the _"authenticationFilters"_ bean 
+
+### Use of LTI integration
+
+From the Opencast Video Blocks on Moodle, teacher can upload videos to Opencast selecting a serie.
+After that, teacher could add this video into diferent spaces at actual course. Adding a new activity:
+![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220126.png?raw=true)
+
+We could choose:
+- Video (Opencast):
+  - This option embed a video into a new block of the course
+  - Teacher could choose between a single video or a full video's series.
+  ![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220126_09004.png?raw=true)
+  ![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220126_09007.png?raw=true)
+- Embed the video throught any other resource (for example, a new page):
+  - Teacher needs to pick up the video from the OpenCast Repository on Moodle
+  ![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220126_09012.png?raw=true)
+  ![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220126_09013.png?raw=true)
+  (If you are not using Firefox you will see the video on this page)
+  ![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220126_09020.png?raw=true)
+  
 
 
 
