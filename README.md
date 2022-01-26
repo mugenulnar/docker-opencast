@@ -135,17 +135,16 @@ We could choose:
 - Video (Opencast):
   - This option embed a video into a new block of the course
   - Teacher could choose between a single video or a full video's series.
-![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220126_09004.png?raw=true)
-
-![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220126_09007.png?raw=true)
+  ![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220126_0904.png?raw=true)
+  ![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220126_0907.png?raw=true)
 
 - Embed the video throught any other resource (for example, a new page):
   - Teacher needs to pick up the video from the OpenCast Repository on Moodle
-![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220126_09012.png?raw=true)
-![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220126_09013.png?raw=true)
+  ![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220126_0912.png?raw=true)
+  ![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220126_0913.png?raw=true)
 
   (If you are not using Firefox you will see the video on this page)
-![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220126_09020.png?raw=true)
+  ![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220126_0920.png?raw=true)
 
 
 
