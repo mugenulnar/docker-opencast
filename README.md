@@ -148,5 +148,4 @@ We could choose:
 
 
 ## Future implementations
-- ### LTI integration
 - ### Scale with K8s
