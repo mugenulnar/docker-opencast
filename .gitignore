@@ -1,0 +1,9 @@
+./nginx/certs/opencast-dsa.ext
+./nginx/certs/opencast.crt
+./nginx/certs/opencast.csr
+./nginx/certs/opencast.key
+./nginx/certs/opencast.pfx
+./nginx/certs/rootCA.crt
+./nginx/certs/rootCA.key
+./nginx/certs/rootCA.srl
+
