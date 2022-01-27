@@ -41,6 +41,8 @@ This user is the user we need to configure on the Moodle plugin configuration: `
 Next plugin is the Block plugin, that allow us to get a Moodle Block where teachers could upload the videos to Opencast Repository. The official docs are available [here]()
 Once we add the the Opencast Block teachers are able to access and *create a new serie* and select videos to upload this serie. The series management help us to keep the peaceful order on Opencast.
 
+All series and videos creates under one course will be available only on this course. Teacher can not access to another serie that exists in another course.****
+
 **Important tip: at this moment the size limit on the upload process is the limit that sysadmins configure on the PHP.ini of Moodle. If we need (obviously we need id) to upload biggers files, we need to use the chunkupload plugin.** 
 
 ### Chunk Upload plugin
@@ -146,7 +148,10 @@ We could choose:
   (If you are not using Firefox you will see the video on this page)
   ![alt text](https://github.com/mugenulnar/docker-opencast/blob/main/README/Pasted_image_20220126_0920.png?raw=true)
 
-
+By adding the Opencast LTI integration once at your Moodle site, the LTI will be applied to all OpenCast content on your site.
 
 ## Future implementations
 - ### Scale with K8s
+
+
+## Adding Moodle to Docker-Compose
