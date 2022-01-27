@@ -1,4 +1,4 @@
-# How to generate a Self Certificate[Link here](https://www.baeldung.com/openssl-self-signed-cert)
+# How to generate a Self Certificate [Link here](https://www.baeldung.com/openssl-self-signed-cert)
 
 ## Generate Private Key 
 openssl genrsa -des3 -out opencast.key 2048
