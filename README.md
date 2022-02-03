@@ -126,6 +126,10 @@ Modify the following files:
   - Uncomment line: `lti.oauth.highly_trusted_consumer_key.1=CONSUMERKEY`
 - mh_default_org.xml:
   - Uncomment line: `<ref bean="oauthProtectedResourceFilter" />` inside the _"authenticationFilters"_ bean 
+- org.opencastproject.kernel.security.OAuthConsumerDetailsService.cfg
+  - Key and Secret configuration
+- org.opencastproject.security.lti.LtiLaunchAuthenticationHandler.cfg
+  - Configuration of LTI
 
 ### Use of LTI integration
 
