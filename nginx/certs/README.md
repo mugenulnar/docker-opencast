@@ -30,7 +30,7 @@ openssl pkcs12 -inkey opencast.key -in opencast.crt -export -out opencast.pfx
 
 
 # WINDOWS Version
-- [Enlace Guia Oficial](https://wiki.openssl.org/index.php/Binaries)
+- [Official Guide](https://wiki.openssl.org/index.php/Binaries)
 
 ## Install OpenSSL binaries
 1. Enter on the first enrty [SLProject](https://slproweb.com/products/Win32OpenSSL.html)
