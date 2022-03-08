@@ -1,32 +1,32 @@
 # LINUX Version
 
 ## Generate Private Key 
-openssl genrsa -des3 -out opencast.key 2048
+openssl genrsa -des3 -out <key_file_name>.key 2048
 
 ## Create a Certificate Request (CSR)
-openssl req -key opencast.key -new -out opencast.csr
+openssl req -key <key_file_name>.key -new -out <csr_file_name>.csr
 
 ## Create the Self Signed Certificate
-openssl x509 -signkey opencast.key -in opencast.csr -req -days 365 -out opencast.crt
+openssl x509 -signkey <key_file_name>.key -in <csr_file_name>.csr -req -days 365 -out <crt_file_name>.crt
 
 ## Create a Self Root CA
 openssl req -x509 -sha256 -days 1825 -newkey rsa:2048 -keyout rootCA.key -out rootCA.crt
 
 ## Create a configuration file for the CSR CA
 ```bash
-#opencast-dsa.ext
+#<ext_file_name>.ext
 authorityKeyIdentifier=keyid,issuer
 basicConstraints=CA:FALSE
 subjectAltName = @alt_names
 [alt_names]
-DNS.1 = opencast-dsa.local
+DNS.1 = <local_domain>.local
 ```
 
 ## Sign the CA-Certificate
-openssl x509 -req -CA rootCA.crt -CAkey rootCA.key -in opencast.csr -out opencast.crt -days 365 -CAcreateserial -extfile opencast-dsa.ext
+openssl x509 -req -CA rootCA.crt -CAkey rootCA.key -in <csr_file_name>.csr -out <crt_file_name>.crt -days 365 -CAcreateserial -extfile <ext_file_name>.ext
 
 ## (Optional) Convert Certificate to PFX Certificate Format
-openssl pkcs12 -inkey opencast.key -in opencast.crt -export -out opencast.pfx
+openssl pkcs12 -inkey <key_file_name>.key -in <crt_file_name>.crt -export -out <pfx_file_name>.pfx
 
 
 # WINDOWS Version
@@ -44,3 +44,4 @@ openssl pkcs12 -inkey opencast.key -in opencast.crt -export -out opencast.pfx
 1. Run CMD as administrator
 2. Go to "C:\Program Files\OpenSSL-Win64" -> `cd " C:\Program Files\OpenSSL-Win64\bin"`
 3. Follow the same steps as in the Linux version
+4. Remove the phrase on the KEY certificate-> `openssl rsa -in <key_file>.key -out <NEW_key_file>.key`
